@@ -1,6 +1,8 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +33,8 @@ Route::middleware('auth')->group(function () {
 
 
 });
+    Route::get('/product/off', 'ProductController@off')->name('product.off');
+    Route::resource('product', 'ProductController');
 
-
-Route::resource('product', 'ProductController');
-Route::resource('category', 'CategoryController');
-
+    Route::resource('category', 'CategoryController');
 

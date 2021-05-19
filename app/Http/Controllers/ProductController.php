@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Http\Requests\StoreRequesProduct;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -26,7 +27,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::listProducts();
+        $products = Product::listON();
+        return view('product.list', ['products' => $products]);
+    }
+
+    public function off()
+    {
+        $products = Product::listOFF();
         return view('product.list', ['products' => $products]);
     }
 
@@ -48,10 +55,15 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequesProduct $request)
     {
-        $data = $request->all();
-        Product::create($data);
+        if ($request->has('status')) {
+            $request->status = 1;
+        } else {
+            $request->status = 0;
+
+        }
+        Product::create($request->all());
         Session::flash('mensagem_ok', 'Produto cadastrado!');
         return redirect()->route('product.index');
     }
@@ -73,9 +85,14 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::where('id', $id)->first();
+        if (!$product) {
+            return redirect()->back();
+        }
+        $categories = Product::listCategories();
+        return view('product.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     /**

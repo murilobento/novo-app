@@ -13,11 +13,32 @@ class Product extends Model
 
     protected $fillable = ['name', 'description', 'price', 'qtd', 'cat_id', 'status', 'image'];
 
-    public static function listProducts(){
-    	return DB::table('products')              
-            ->join('categories', 'products.cat_id', '=', 'categories.id')            
+    public static function listON(){
+    	return DB::table('products')
+            ->where('status', '=', 1)
+            ->join('categories', 'products.cat_id', '=', 'categories.id')
             ->select('products.*', 'categories.name as cat_name')
-            ->orderBy('status')
+            ->orderBy('created_at')
+            ->paginate(15);
+    }
+    public static function listOFF(){
+    	return DB::table('products')
+            ->where('status', '=', 0)
+            ->join('categories', 'products.cat_id', '=', 'categories.id')
+            ->select('products.*', 'categories.name as cat_name')
+            ->orderBy('created_at')
+            ->paginate(15);
+    }
+
+    /*
+    public static function listCategories(){
+        return DB::table('categories')
+            ->select('categories.*', 'categories.name as cat_name')
             ->get();
-    }    
+    }
+    */
+
+    public static function listCategories(){
+    	return Category::all();
+    }
 }

@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->double('price', 8, 2);
             $table->integer('qtd');
-            $table->unsignedBigInteger('cat_id');     
+            $table->unsignedBigInteger('cat_id');
             $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
             $table->boolean('status')->default(1);
             $table->string('image', 150)->nullable();

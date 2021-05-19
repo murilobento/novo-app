@@ -6,7 +6,7 @@
         <h3 class="alert-heading h4 my-2">ERRO!</h3>
         <p class="mb-0">
         @foreach ($errors->all() as $error)
-            * {{ $error }}
+            <b>* {{ $error }} <br></b>
         @endforeach
         </p>
     </div>

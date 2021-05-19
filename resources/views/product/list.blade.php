@@ -25,6 +25,37 @@
                     </div>
                 </a>
             </div>
+            @if(Request::is('*off'))
+            <div class="col-6 col-lg-2">
+                <a class="block block-rounded block-link-shadow text-center" href="{{ route('product.index') }}">
+                    <div class="block-content bg-success">
+                        <div class="font-size-h2 text-white">
+                            <i class="fa fa-toggle-on"></i>
+                        </div>
+                    </div>
+                    <div class="block-content py-2 bg-success">
+                        <p class="font-w600 font-size-sm text-white mb-0">
+                            Produtos Ativos
+                        </p>
+                    </div>
+                </a>
+            </div>
+            @else
+            <div class="col-6 col-lg-2">
+                <a class="block block-rounded block-link-shadow text-center" href="{{ route('product.off') }}">
+                    <div class="block-content bg-danger">
+                        <div class="font-size-h2 text-white">
+                            <i class="fa fa-toggle-off"></i>
+                        </div>
+                    </div>
+                    <div class="block-content py-2 bg-danger">
+                        <p class="font-w600 font-size-sm text-white mb-0">
+                            Produtos Inativos
+                        </p>
+                    </div>
+                </a>
+            </div>
+            @endif
         </div>
 
         <!-- Dynamic Table with Export Buttons -->
@@ -44,18 +75,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)                            
+                        @foreach ($products as $product)
                             <tr>
                                 <td class="text-center font-w600 font-size-sm">
                                     @if($product->status === 1) <span class="badge badge-success">ON</span> @else <span class="badge badge-danger">OFF</span> @endif
-                                </td>                                                           
+                                </td>
                                 <td class="font-w600 font-size-sm">
                                     <a href="{{ route('product.edit', $product->id) }}">{{ $product->name }}</a>
                                 </td>
                                 <td class="font-w600 font-size-sm">
                                     {{ $product->cat_name }}
                                 </td>
-                               
+
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <a href="{{ route('product.edit', $product->id) }}" type="button"
@@ -104,7 +135,7 @@
                     </tbody>
                 </table>
                 <div class="block-content">
-                  
+
                 </div>
             </div>
         </div>

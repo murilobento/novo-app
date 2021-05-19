@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Cadastrar Produto')
+@section('title', 'Editar Produto')
 
 @section('content')
 
@@ -13,20 +13,22 @@
         <!-- Info -->
         <div class="block block-rounded block-themed">
             <div class="block-header bg-modern-dark">
-                <h3 class="block-title">Cadastrar Produto</h3>
+                <h3 class="block-title">Editar Produto</h3>
             </div>
             <div class="block-content">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-12">
-                        <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('product.update', $product->id) }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="one-ecom-product-name">Nome:</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}">
                             </div>
                             <div class="form-group">
                                 <label for="one-ecom-product-description-short">Descrição:</label>
-                                <textarea class="form-control" id="description" name="description" rows="4">{{ old('description') }}</textarea>
+                                <textarea class="form-control" id="description" name="description" rows="4">{{ $product->description }}</textarea>
                             </div>
                             <div class="form-group">
                                 <!-- Select2 (.js-select2 class is initialized in Helpers.select2()) -->
@@ -35,7 +37,11 @@
                                 <select class="js-select2 form-control" id="cat_id"
                                     name="cat_id" style="width: 100%;">
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                                        <option value="{{ $category->id }}"
+                                            @if($product->cat_id==$category->id) selected="selected" @endif>{{ $category->name }}
+                                        </option>
+
                                     @endforeach
                                 </select>
                             </div>
@@ -43,12 +49,12 @@
                                 <div class="col-md-6">
                                     <label for="one-ecom-product-price">Preço:</label>
                                     <input type="text" class="form-control" id="price"
-                                        name="price" value="{{ old('price') }}">
+                                        name="price" value="{{ $product->price }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="one-ecom-product-stock">Estoque:</label>
                                     <input type="number" class="form-control" id="qtd"
-                                        name="qtd" value="{{ old('qtd') }}">
+                                        name="qtd" value="{{ $product->qtd }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -66,6 +72,7 @@
                                 <label>Status do produto</label>
                                    <!-- <input type="checkbox" class="custom-control-input" id="status" name="status" >
                                     <label class="custom-control-label" for="status"></label> -->
+                                @if($product->status==1)
                                 <div class="custom-control custom-radio">
                                     <input type="radio" class="custom-control-input" id="statusON" name="status" checked="" value="1">
                                     <label class="custom-control-label" for="statusON">ON</label>
@@ -76,6 +83,18 @@
                                     <label class="custom-control-label" for="statusOFF">OFF</label>
 
                                 </div>
+                                @elseif ($product->status==0)
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="statusON" name="status" value="1">
+                                    <label class="custom-control-label" for="statusON">ON</label>
+
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="statusOFF" name="status" checked="" value="0">
+                                    <label class="custom-control-label" for="statusOFF">OFF</label>
+
+                                </div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-alt-success">Cadastrar</button>

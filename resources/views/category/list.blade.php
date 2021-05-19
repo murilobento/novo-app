@@ -12,7 +12,7 @@
 
         <div class="row">
             <div class="col-6 col-lg-2">
-                <a class="block block-rounded block-link-shadow text-center" href="{{ route('product.create') }}">
+                <a class="block block-rounded block-link-shadow text-center" href="{{ route('category.create') }}">
                     <div class="block-content bg-flat">
                         <div class="font-size-h2 text-white">
                             <i class="fa fa-plus"></i>
