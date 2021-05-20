@@ -64,6 +64,18 @@
                 <h3 class="block-title">LISTAGEM DE PRODUTOS</h3>
             </div>
             <div class="block-content block-content-full">
+
+                @if (count($products) === 0)
+
+                <br>
+                <div class="alert alert-info alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <p class="mb-0"><b>OPS!!!</b> Nenhum registro encontrado!</p>
+                </div>
+                @else
+
                 <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
                 <table class="table table-sm table-hover table-vcenter">
                     <thead class="thead-light">
@@ -134,8 +146,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                @endif
                 <div class="block-content">
-
+                        {{ $products->links() }}
                 </div>
             </div>
         </div>

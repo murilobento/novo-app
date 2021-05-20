@@ -19,7 +19,7 @@ class Product extends Model
             ->join('categories', 'products.cat_id', '=', 'categories.id')
             ->select('products.*', 'categories.name as cat_name')
             ->orderBy('created_at')
-            ->paginate(15);
+            ->paginate(7);
     }
     public static function listOFF(){
     	return DB::table('products')
@@ -27,7 +27,7 @@ class Product extends Model
             ->join('categories', 'products.cat_id', '=', 'categories.id')
             ->select('products.*', 'categories.name as cat_name')
             ->orderBy('created_at')
-            ->paginate(15);
+            ->paginate(7);
     }
 
     /*

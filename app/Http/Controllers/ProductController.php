@@ -102,9 +102,13 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreRequesProduct $request, $id)
     {
-        //
+        $data = $request->all();
+        $product = $this->repository->find($id);
+        $product->update($data);
+        Session::flash('mensagem_ok', 'Produto editado!');
+        return redirect()->route('product.index');
     }
 
     /**
@@ -113,8 +117,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = $this->repository->where('id', $id)->first();
+        $product->delete();
+        Session::flash('mensagem_ok', 'Produto excluído!');
+        return redirect()->route('product.index');
     }
 }

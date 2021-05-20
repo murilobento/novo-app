@@ -97,7 +97,7 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-alt-success">Cadastrar</button>
+                                <button type="submit" class="btn btn-alt-success">Editar</button>
                                 <a href="{{ route('product.index') }}" type="button" class="btn btn-alt-info">Voltar</a>
                             </div>
                         </form>
